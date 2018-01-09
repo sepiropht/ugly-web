@@ -10,6 +10,7 @@ console.log("qsdfddddddddddddd");
     console.log(dialog, "DIALOGO PUTTA DE MERDE");
     dialog.type; // 'alert', 'confirm', 'prompt', 'beforeunload'
     dialog.accept(); // takes optional string
+
     const frames = await page.frames();
     console.log("IFRAAAAAAAAAME", frames);
     let tds = await frames[0].evaluate(
@@ -27,6 +28,15 @@ console.log("qsdfddddddddddddd");
     "tr"
   );
   console.log("ttttttttttddddd", tds);
+  if(tds.length) {
+	  await page.click('a')
+	  tds = tds.concat( await page.evaluate(
+    td => Array.from(document.querySelectorAll(td)).map(td => td.textContent),
+    "tr"
+  ));
+   console.log(tds)
+  }
+
   if (!tds.length) {
     const frames = await page.frames();
     console.log("IFRAAAAAAAAAME", frames);
